@@ -5,7 +5,7 @@ Requirements: Django<2.0
 
 Find the videos of the project at https://www.youtube.com/playlist?list=PL9-M0iymS5AJlBGN0KggqHIwLyUnCBaGW
 
-- Team Members:
+Team Members:
 
 • Anubhav Ujjawal (anubhav.u16@iiits.in) 
 
