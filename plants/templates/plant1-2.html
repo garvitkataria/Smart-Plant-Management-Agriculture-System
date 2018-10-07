@@ -1,0 +1,772 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{% static 'plants/css/materialize.min.css' %}"  media="screen,projection"/>
+       <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="{% static 'plants/js/materialize.min.js' %}"></script>
+
+      <script src="{% static 'plants/js/raphael-2.1.4.min.js' %}"></script>
+      <script src="{% static 'plants/js/justgage.js' %}"></script>
+      <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+      <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+      </script>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Caption" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Economica" rel="stylesheet">
+
+    <title></title>
+    </head>
+    <style>
+
+    .dash {
+animation : sid 3s ease-in-out;
+}
+@keyframes sid {
+from {
+margin-top:0px;
+
+  opacity : 0;
+}
+to {
+
+  margin-top: 0px;
+  opacity : 1;
+}
+}
+
+
+        .card2{
+            background-color: rgba(255, 255, 255, .4);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, .4);
+            transition: all .4s ease-in-out;
+        }
+        .card2:hover{
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .card1{
+            background-color: rgba(255, 255,255, 0.3);
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, .4);
+            transition: all .4s ease-in-out;
+
+        }
+        .card1:hover{
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
+
+        }
+
+        #g1{
+         width:200px; height:160px;
+         display: inline-block;
+         margin: 1em;
+       }
+
+       .gauge {
+       width: 320px;
+       height: 240px;
+     }
+
+       #map{
+        height: 350px;
+        width: 1347px;
+        margin-left:0px;
+       }
+
+    .zc-ref {
+      display: none;
+    }
+
+
+    .glass {
+    margin: 30px auto;
+    height: 300px;
+    width: 280px;
+    margin-top: 30px;
+    margin-left: 80px;
+    position: absolute;
+    border-style: none solid solid solid;
+    border-width: 10px;
+    border-color: lightgray;
+    border-radius: 10px;
+}
+
+.water {
+    width: 100%;
+    height: {{wlevel.value}}%;
+    background-color:skyblue;
+    position: absolute;
+    bottom: 0;
+}
+
+.card3{
+    background-color: rgba(255, 255, 255, .7);
+    width: 100%;
+    height: 10%;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+    transition: all .4s ease-in-out;
+}
+
+.card2:hover{
+    box-shadow: 0px 0px 200px rgba(0, 0, 0, 0.7);
+}
+
+.plant_status_alive{
+    background-color: rgba(85, 201,14, 1);
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, .4);
+    transition: all .4s ease-in-out;
+
+}
+.plant_status_alive:hover{
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+
+}
+
+.plant_status_dead{
+    background-color: rgba(255, 0,0, 1);
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, .4);
+    transition: all .4s ease-in-out;
+
+}
+.plant_status_dead:hover{
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+
+}
+
+    </style>
+    <body bgcolor="white" class="dash" background="{% static 'plants/leef1.jpg' %}"  >
+        <div class="container">
+      <div style="width:1345px;">
+        <div class="fixed-action-btn vertic">
+<a class="btn-floating btn-large red">
+ <i class="large material-icons">mode_edit</i>
+</a>
+<ul>
+ <li><a  href="{% static 'plants/plant2.html' %}" class="btn-floating green"><i class="ion-leaf"></i></a></li>
+ <li><a  href="{% static 'plants/pie1.html' %}" class="btn-floating red darken-1"><i class="ion-pie-graph"></i></a></li>
+ <li><a   href="{% url 'plants:dashboard' %}" class="btn-floating blue"><i class="ion-home"></i></a></li>
+</ul>
+</div>
+<center class="card3"><font style="font-family: 'Exo 2', sans-serif;font-size:53px;width:1345px;height:5px;" color="black"><b>Dashboard: {{plant.alias}}</b></font><br><br>
+    </center><br>
+</div>
+      <div style="width:1345px;height:800px;margin-top:-22px">
+    <div class="carousel carousel-slider center" style = "height: 70vh;box-shadow: 0px 30px 60px #000;" data-indicators="true">
+    <div  class="carousel-item" id='myChart1'>
+    </div>
+    <div  class="carousel-item" id='myChart2'>
+    </div>
+    <div class="carousel-item" id='myChart3'>
+    </div>
+    </div>
+
+    </div>
+    <p>
+      {% if id %}
+       <center><h3 style="color:white;">Your {{type}} sensor was registered with {{id}}</h3></center>
+      {% endif %}
+    </p>
+    <div style="width:1345px;height:800px;margin-top:20px;background-image: url({% static 'plants/abs.jpg' %});" >
+
+
+  <div class="card2" style="margin-top:-80px;margin:20px;margin-left:100px;float:left;width:440px;height:440px;font-size:30px;"><b><center>WATER TANK</center></b>
+    <div class="glass">
+    <div class="water"></div>
+  </div>
+  </div>
+          <!--pie-->
+
+
+
+
+<a href="temperature1.html"><div class="card1" style="float:left;width:200px;height:200px;margin-top:19px;margin-left:180px;">
+  <center style="z-index:1;color:black"><br><b>Temperature <sup>o</sup> C</b></center>
+<i class="ion-thermometer" style="font-size:100px;margin-left:40px;color:black;z-index:1;"></i><span style = "color:black;font-size:20px">&nbsp;&nbsp;<b>{{temp.value}}</b></span>
+</div></a>
+<div id="g1" class="card1" style="float:left;width:200px;height:200px;margin-top:19px;margin-left:50px;">
+</div>
+<a href="humidity1.html"><div class="card1" style="width:200px;float:left;margin-left:180px;margin-top:20px;height:200px">
+  <center style="z-index:1;color:black"><br><b>LDR<br><br></b></centre>&emsp;&emsp;
+  <i class="ion-ios-partlysunny" style="font-size:80px;margin-left:-120px;color:black;z-index:1;"></i><span style = "color:black;font-size:20px;">&nbsp;&nbsp;<b>{{humidity.value}}</b></span>
+</div></a>
+<div class="card1" style="width:200px;float:left;margin-left:50px;margin-top:20px;height:200px">
+<center style="color:black;z-index:1;"><br><b>Actuator State<br><br></b></centre>
+<i class="ion-toggle-filled" style="font-size:80px;margin-left:-110px;color:black;"></i><span style = "color:black;font-size:20px;">&nbsp;&nbsp;<b>{{act.state}}</b></span>
+</div>
+<div id="div1" style="width:200px;height:210px;float:left;margin-top:34px;margin-left:180px" >
+  <center style="font-size:20px;margin-top:-4px;"><b>Plant Status</b></center>
+ <img src="{% static 'plants/plant_st.png'%}">
+</div>
+<div class="card1" style="float:left;width:200px;height:200px;margin-top:34px;margin-left:55px;">
+  <center style="z-index:1;color:black"><br><b>Rain Sensor</b></center>
+<i class="ion-ios-rainy" style="font-size:100px;margin-left:10px;color:black;z-index:1;"></i><span style = "color:black;font-size:20px">&nbsp;&nbsp;<b>{{rain.value}}</b></span>
+</div>
+</div>
+<br><br>
+<div style="width:1000px;height:300px;">
+<div style="margin-top:-10px" id="map"></div>
+</div>
+<center>
+<div class="card2" style="width:400px;height:400px;margin-top:100px;background-color:#fff;border-radius:5px">
+
+<font style="font-family: 'Exo 2', sans-serif;font-size:40px;">ADD SENSOR</font>
+
+  <div class="input-field col s12" style="width:200px;">
+  <form method='post' action={% url 'sensors:addsensor'%}>
+  <input type="hidden" name="alias" value="{{plant.alias}}">
+  <select name="type">
+   <option value="" disabled selected>Choose your Sensor</option>
+   <option value="Water Level">Water Level</option>
+   <option value="Temperature">Temperature</option>
+   <option value="Humidity">Humidity</option>
+   <option value="Soil Moisture">Soil Moisture</option>
+  </select>
+  <button class="btn waves-effect waves-light" type="submit" name="action" style="margin-top:100px">Submit
+   <i class="material-icons right">send</i>
+ </button>
+ </form>
+  </div>
+  {% if sensors %}
+    <div style="margin-top:170px; color: white; font-size:16px !important;">
+      {% for sensor in sensors%}
+          {{sensor.sensor_type}}: {{sensor.id}}
+        <br/>
+      {% endfor %}
+    </div>
+  {% endif %}
+  </center>
+  <script>
+
+  $(document).ready(function() {
+  $('select').material_select();
+  });
+  </script>
+
+</div>
+</center>
+
+
+
+
+
+<!--pie-->
+
+<!--guage-->
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+
+  var g1;
+  var x = {{moisture.value}};
+  var g1 = new JustGage({
+      id: "g1",
+      value: x,
+      symbol: '%',
+      min: 0,
+      max: 100,
+      title:"Soil Moisture (m3/v)",
+      label: "",
+      shadowOpacity: 1,
+      shadowSize: 5,
+      shadowVerticalOffset: 10
+    });
+
+
+    setInterval(function() {
+        g1.refresh(x);
+
+      }, 2500);
+
+  });
+
+
+</script>
+
+
+<br><br>
+
+<!--map-->
+<script>
+  function initMap() {
+    var kobelco = {lat:13.552641, lng:80.016036};
+    var c1 = {lat:13.580000, lng:80.028000};
+    var iiit = {lat:13.555439, lng:80.027366};
+    var ifmr = {lat:13.549934, lng:80.000071};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: c1
+    });
+
+    if({{moisture.value}}>20)
+    {
+    var marker1 = new google.maps.Marker({
+      position: iiit,
+      map: map,
+      icon:'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+    });}
+    else{
+         var marker1 = new google.maps.Marker({
+      position: iiit,
+      map: map,
+    });
+
+    }
+
+    var infowindow1 = new google.maps.InfoWindow({
+      content: '<b>Plant 1<br>IIIT Sri City</b>'
+    });
+
+    infowindow1.open(map, marker1);
+
+    google.maps.event.addListener(marker1, 'click', function(){infowindow1.open(map,marker1);});
+    google.maps.event.addDomListener(window, 'load', init_map);
+
+
+
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy7wSlEOIGjQwmvxDA8iu2BTjyyKzQZHU&callback=initMap">
+</script>
+
+
+<!--carousel-->
+<script>
+            $('.carousel.carousel-slider').carousel({full_width: true});
+            setInterval(function(){
+  $('.carousel').carousel('next');
+}, 15000);
+
+</script>
+
+<script>
+    zingchart.THEME = "classic";
+    var myConfig = {
+      "type": "line",
+      "background-color": "#003849",
+      "utc": true,
+      "title": {
+        "y": "7px",
+        "text": "Temperature Analytics",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
+      },
+      "plotarea": {
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "40%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+       "scale-x": {
+        "values":"1:10:1",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Date and Time",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "scale-y": {
+        "values": "15:45:5",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Temperature °C",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
+      },
+      "series": [{
+       // "values": {{tem}},
+       "values":{{temp_values}},
+        "text": "Temperature",
+        "line-color": "#0dc3f8",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
+        "marker": {
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart1',
+      data: myConfig,
+      height: 700,
+      width: 1345,
+    });
+  </script>
+
+<script>
+    zingchart.THEME = "classic";
+    var myConfig = {
+      "type": "line",
+      "background-color": "#003849",
+      "utc": true,
+      "title": {
+        "y": "7px",
+        "text": "Humidity Analytics",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
+      },
+      "plotarea": {
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "40%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+       "scale-x": {
+        "values":"1:10:1",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Date and Time",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "scale-y": {
+        "values": "0:100:10",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Humidity %",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
+      },
+      "series": [{
+        //"values": {{humidity}},
+        "values":[32.1,28.5,25.5,27,27.7,30,31.9,30.2,31.7,32,33.3,33.1,35.4],
+        "text": "Humidity",
+        "line-color": "#2df711",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
+        "marker": {
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart2',
+      data: myConfig,
+      height: 700,
+      width: 1345,
+    });
+  </script>
+
+<script>
+    zingchart.THEME = "classic";
+    var myConfig = {
+      "type": "line",
+      "background-color": "#003849",
+      "utc": true,
+      "title": {
+        "y": "7px",
+        "text": "Soil Moisture Analytics",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
+      },
+      "plotarea": {
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "40%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+       "scale-x": {
+        "values":"1:10:1",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Date and Time",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "scale-y": {
+        "values": "0:100:10",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Soil Moisture (in %)",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
+      },
+      "series": [{
+       // "values": {{pressure}},
+       "values":{{soil_values}},
+        "text": "Soil Moisture",
+        "line-color": "#2df711",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
+        "marker": {
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart3',
+      data: myConfig,
+      height: 900,
+      width: 1345,
+    });
+  </script>
+`<script>
+    var element = document.getElementById('div1');
+  if({{moisture.value}}>20)
+  {
+    element.className = 'plant_status_alive';
+  }
+  else {
+      element.className = 'plant_status_dead';
+  }
+
+</script>
+</div>
+    </body>
+  </html>

@@ -1,0 +1,225 @@
+{% load staticfiles%}
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Water Management System</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'plants/css/main.css' %}" />
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+		
+	</head>
+	<body>
+
+		<!-- Header -->			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image avatar48" style="background-color:inherit !important;"><img src="{% static 'plants/images/man.svg' %}" alt="" /></span>
+							<h1 id="title">{{ username }}</h1>
+							
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<!--
+
+								Prologue's nav expects links in one of two formats:
+
+								1. Hash link (scrolls to a different section within the page)
+
+								   <li><a href="#foobar" id="foobar-link" class="icon fa-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
+
+								2. Standard link (sends the user to another page/site)
+
+								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
+
+							-->
+							<ul>
+								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Map</span></a></li>
+								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About Us</span></a></li>
+								<li><a href="#contact" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Add Plant</span></a></li>
+								<a href="{% url 'auth_part:logout' %}"><button style="margin-right: 20px;margin-top: 10px;">Logout</button></a>								
+								<center><li>Your Plants</li></center>
+								<hr/>								
+								{% for plant in plants %}
+									{% if plant.alias %}
+										<a style="text-align:center;" href="{{plant.get_absolute_url}}"><div style="font-size:1rem; font-weight:bold;">{{plant.alias}}</div></a><hr/>
+									{% else %}
+										<a style="text-align:center;" href="{{plant.get_absolute_url}}"><div style="font-size:1rem; font-weight:bold;">{{plant.alias}}</div></a><hr/>
+									{% endif %}		
+									</a>
+								{% endfor %}
+							</ul>
+						</nav>
+
+				</div>
+
+			<!--	<div class="bottom">
+
+					
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+
+				</div> -->
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="top" class="one dark cover">
+						<div class="container">
+
+						<div id="map"></div>
+							<script>
+
+							function initMap() {
+
+								var kobelco = {lat:13.552641, lng:80.016036};
+
+								var iiit = {lat:13.555439, lng:80.027366};
+
+								var ifmr = {lat:13.549934, lng:80.000071};
+
+								var map = new google.maps.Map(document.getElementById('map'), {
+
+								zoom: 15,
+
+								center: kobelco
+
+								});
+
+								var marker1 = new google.maps.Marker({
+
+								position: iiit,
+
+								map: map
+
+								});
+
+
+
+								var marker2 = new google.maps.Marker({
+
+								position: ifmr,
+
+								map: map
+
+								});
+
+
+
+								var infowindow1 = new google.maps.InfoWindow({
+
+								content: '<b>Plant 1</b>'
+
+								});
+
+
+
+								var infowindow2 = new google.maps.InfoWindow({
+
+								content: '<b>Plant 2</b>'
+
+								});
+
+
+
+								infowindow1.open(map, marker1);
+
+								infowindow2.open(map, marker2);
+
+
+
+							}
+
+							</script>
+							<script async defer
+							src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy7wSlEOIGjQwmvxDA8iu2BTjyyKzQZHU&callback=initMap">
+							</script>
+
+						</div>
+					</section>
+
+			
+
+				<!-- About Us -->
+					<section id="about" class="three">
+						<div class="container">
+
+							<header>
+								<h2>About Us</h2>
+							</header>
+
+							<a href="#" class="image featured"><img src="http://staugustine.com/sites/default/files/styles/slideshow__640x360/public/images/2302251_web1_SAR_NEW_050417_Sprinkler_01_web.jpg?itok=hZLciLu5kaZ-R-vR2VULGieiAUbbp82jdj0ecNkVRG93yMoDw_ChUqZRM73QrZSWgwpJzOLRZeUhkZFKcLsF1JGJtWak8-RVTDNGd2L89pSh7otTHh8tc10zanRGceSfVCfY3wzZwc2_KKpNpkYmqet1JWhuCUKq0wa2iir2vSPigQH0ZVnwS78rh2q4DsJIftxht7YGtCEgs5vP5N44GIW2d1EdxMehW0FDzyACdrU8ZU245RE2So-RWABpj_DUFH1A8rlZ8CZ9iBCCtZll42jci_cM4W4dkB2PyW4q_BZp6-sR4h6HmPwrtl8Qc4-9pAM7vmeRjK4iLN8gXxso3NOaFLC6BiV-aG0Yx87_fmmeAbAmT3S1Gv1YZuWhA_FLAmDF2vE5QLNtkGlO880lcIIKvjhUQo73hhfeTHUskZdt3kQ8kQ14f2ZCVsxH3aOqxDVZLSfTOkI1hE8U_NFu3GG8zX5TsUJ0QveIYXK8zgDafWIGSqUDqRjnLoy_fxdAaBwF7Nextl2svx_nfAeyPRSbt3GVDIriDJTw_ZI-P8xHmKE-y_TR8A4bl6lZkk1rtQtPGXUm1ZlftZuE26u1HN5-RoGr7z4v2ezeHVD_Xehex4vP5fgNpsEOoBVp=s0-l75-ft-l75-ft" alt="" /></a>
+
+							<p>Water resource management is the activity of planning, developing, distributing and managing the optimum use of water resources.</p><p>This is a <b>GIS Based Water Management System...</b></p>
+
+						</div>
+					</section>
+
+				<!-- Contact -->
+					<section id="contact" class="four">
+						<div class="container">
+
+							
+
+							
+								 <div class="box1 details" style="text-align:center;"><h2 style="padding-bottom: 5px;font-size: 25px;">Add a Plant</h2>
+								<form method="post" action="{% url 'plants:addplant' %}"><br>
+								<div class="row">
+									<div class="6u 12u$(mobile)" style="width:auto;margin-left:42px;"><input type="text" name="alias" placeholder="Give an Alias or use unique ID." /></div>
+									
+								<!--	<div class="12u$">
+										<textarea name="message" placeholder="Message"></textarea>
+									</div>-->
+									<br><br><br>
+									<div class="12u$" style="margin-top:40px;">
+										<input type="submit" value="Add" style="background-color:#1e8c87"/>
+									</div>
+								</div>
+							</form>
+		   
+		   
+		   
+		   </div>	
+		
+
+							
+
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<div id="footer">
+				<hr style="clear:both;margin-bottom:3%; width:80%;border: 1.5px solid #988;">
+				<!-- Copyright -->
+					<ul class="copyright" style="float:right;margin-right:100px;">
+						<li>Designed by: <a href="#" target="blank">Group 12</a></li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'plants/js/jquery.min.js' %}"></script>
+			<script src="{% static 'plants/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'plants/js/jquery.scrollzer.min.js' %}"></script>
+			<script src="{% static 'plants/js/skel.min.js' %}"></script>
+			<script src="{% static 'plants/js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="{% static 'plants/js/main.js' %}"></script>
+
+	</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <script>
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+  </script>
+  <style>
+    .zc-ref {
+      display: none;
+    }
+  </style>
+</head>
+
+<body background="leef.jpg"><br><br><br><br>
+  <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+  <script>
+    zingchart.THEME = "classic";
+    var myConfig = {
+      "type": "line",
+      "background-color": "#003849",
+      "utc": true,
+      "title": {
+        "y": "7px",
+        "text": "Temperature Analytics",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
+      },
+      "plotarea": {
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "40%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+      "scale-x": {
+        "min-value": 1507104000000,
+        "shadow": 0,
+        "step": "7000000",
+        "line-color": "#f6f7f8",
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "transform": {
+          "type": "date",
+          "all": "%D, %d %M<br />%h:%i %A",
+          "guide": {
+            "visible": false
+          },
+          "item": {
+            "visible": false
+          }
+        },
+        "label": {
+          "visible": false
+        },
+        "minor-ticks": 0
+      },
+      "scale-y": {
+        "values": "0:60:10",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Temperature °C",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
+      },
+      "series": [{
+       // "values": {{tem}},
+       "values":[32.1,28.5,25.5,27,27.7,30,31.9,30.2,31.7,32,33.3,33.1,35.4],
+        "text": "Temperature",
+        "line-color": "#0dc3f8",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
+        "marker": {
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+      height: 550,
+      width: 1345,
+    });
+  </script>
+</body>
+
+</html>

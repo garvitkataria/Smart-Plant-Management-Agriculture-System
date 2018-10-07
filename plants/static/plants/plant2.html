@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+       <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+
+      <script src="raphael-2.1.4.min.js"></script>
+      <script src="justgage.js"></script>
+      <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+      <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+      </script>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Caption" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Economica" rel="stylesheet">
+
+    <title></title>
+    </head>
+    <style>
+
+    .dash {
+animation : sid 3s ease-in-out;
+}
+@keyframes sid {
+from {
+margin-top:0px;
+
+  opacity : 0;
+}
+to {
+
+  margin-top: 0px;
+  opacity : 1;
+}
+}
+
+
+        .card2{
+            background-color: rgba(255, 255, 255, .4);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, .4);
+            transition: all .4s ease-in-out;
+        }
+        .card2:hover{
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .card1{
+            background-color: rgba(255, 255,255, 0.3);
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, .4);
+            transition: all .4s ease-in-out;
+
+        }
+        .card1:hover{
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
+
+        }
+
+        #g1{
+         width:200px; height:160px;
+         display: inline-block;
+         margin: 1em;
+       }
+
+       .gauge {
+       width: 320px;
+       height: 240px;
+     }
+
+       #map{
+        height: 350px;
+        width: 1347px;
+        margin-left:0px;
+       }
+
+    .zc-ref {
+      display: none;
+    }
+
+
+    .glass {
+    margin: 30px auto;
+    height: 300px;
+    width: 280px;
+    margin-top: 30px;
+    margin-left: 80px;
+    position: absolute;
+    border-style: none solid solid solid;
+    border-width: 10px;
+    border-color: lightgray;
+    border-radius: 10px;
+}
+
+.water {
+    width: 100%;
+    height: 10%;
+    background-color:skyblue;
+    position: absolute;
+    bottom: 0;
+}
+
+.card3{
+    background-color: rgba(255, 255, 255, .7);
+    width: 100%;
+    height: 85px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+    transition: all .4s ease-in-out;
+}
+
+.card2:hover{
+    box-shadow: 0px 0px 200px rgba(0, 0, 0, 0.7);
+}
+
+    </style>
+    <body bgcolor="white" class="dash" background="leef1.jpg"  >
+      <div>
+        <div class="fixed-action-btn vertic">
+<a class="btn-floating btn-large red">
+ <i class="large material-icons">mode_edit</i>
+</a>
+<ul>
+ <li><a  href="plant1.html" class="btn-floating green"><i class="ion-leaf"></i></a></li>
+ <li><a  href="pie2.html" class="btn-floating red darken-1"><i class="ion-pie-graph"></i></a></li>
+ <li><a   href="homepage.html" class="btn-floating blue"><i class="ion-home"></i></a></li>
+</ul>
+</div>
+<center class="card3"><font style="font-family: 'Exo 2', sans-serif;font-size:53px;width:1345px;height:5px;" color="black"><b>Dashboard: Plant 2</b></font><br><br>
+    </center><br>
+
+      </div>
+
+    <div style="width:1345px;height:900px;margin-top:-22px">
+    <div class="carousel carousel-slider center" style = "height: 100vh;box-shadow: 0px 30px 60px #000;" data-indicators="true">
+    <div  class="carousel-item" href="#one!" id='myChart1'>
+      <a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a>
+    </div>
+    <div  class="carousel-item" id='myChart2' href="#two!">
+      <a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a>
+    </div>
+    <div class="carousel-item" id='myChart3' href="#three!">
+      <a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a>
+    </div>
+  </div>
+
+    </div>
+
+
+    <div style="width:1345px;height:500px;margin-top:20px;background-image: url(abs.jpg);" >
+
+
+  <div class="card2" style="margin-top:-70px;margin:20px;margin-left:100px;float:left;width:440px;height:440px;font-size:30px;"><b><center>WATER TANK</center></b>
+    <div class="glass">
+    <div class="water"></div>
+  </div>
+  </div>
+          <!--pie-->
+
+
+
+
+<a href="temperature2.html"><div class="card1" style="float:left;width:200px;height:200px;margin-top:19px;margin-left:180px;">
+  <center style="z-index:1;color:black"><br><b>TEMPERATURE <sup>o</sup> C</b></center>
+<i class="ion-thermometer" style="font-size:100px;margin-left:40px;color:black;z-index:1;"></i>
+</div></a>
+<div id="g1" class="card1" style="float:left;width:200px;height:200px;margin-top:19px;margin-left:50px;">
+</div>
+<a href="humidity2.html"><div class="card1" style="width:200px;float:left;margin-left:180px;margin-top:20px;height:200px">
+  <center style="z-index:1;color:black"><br><b>Humidity<br><br></b></centre>
+  <i class="ion-ios-partlysunny" style="font-size:80px;margin-left:-120px;color:black;z-index:1;"></i>
+</div></a>
+<div class="card1" style="width:200px;float:left;margin-left:50px;margin-top:20px;height:200px">
+<center style="color:black;z-index:1;"><br><b>Turbidity<br><br></b></centre>
+<i class="ion-beaker" style="font-size:80px;margin-left:-120px;color:black;"></i>
+</div>
+</div>
+<br><br>
+<div style="width:1000px;height:300px;">
+<div style="margin-top:-10px" id="map"></div>
+</div>
+
+<center>
+<div class="card2" style="width:400px;height:400px;margin-top:100px;background-color:#fff;border-radius:5px">
+
+<font style="font-family: 'Exo 2', sans-serif;font-size:40px;">ADD SENSOR</font>
+
+  <div class="input-field col s12" style="width:200px">
+  <select>
+   <option value="" disabled selected>Choose your Sensor</option>
+   <option value="Water Level">Water Level</option>
+   <option value="Temperature">Temperature</option>
+   <option value="Humidity">Humidity</option>
+   <option value="Soil Moisture">Soil Moisture</option>
+  </select>
+  <button class="btn waves-effect waves-light" type="submit" name="action" style="margin-top:100px">Submit
+   <i class="material-icons right">send</i>
+ </button>
+
+  </div>
+</center>
+  <script>
+
+  $(document).ready(function() {
+  $('select').material_select();
+  });
+  </script>
+
+
+
+
+
+
+<!--pie-->
+
+<!--guage-->
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+
+  var g1;
+  var g1 = new JustGage({
+      id: "g1",
+      value: getRandomInt(0, 100),
+      symbol: '%',
+      min: 0,
+      max: 100,
+      title: "Soil Moisture",
+      label: "",
+      shadowOpacity: 1,
+      shadowSize: 5,
+      shadowVerticalOffset: 10
+    });
+
+
+    setInterval(function() {
+        g1.refresh(getRandomInt(0, 100));
+
+      }, 2500);
+
+  });
+
+
+</script>
+
+<script>
+$(function(){
+  $('.water').animate({
+      height: Math.floor((Math.random() * 100) + 50)
+  }, 1000)
+})
+</script>
+
+<br><br>
+
+<!--guage-->
+<script>
+  function initMap() {
+    var kobelco = {lat:13.552641, lng:80.016036};
+    var c2 = {lat:14.001000, lng:80.000000};
+    var iiit = {lat:13.555439, lng:80.027366};
+    var ifmr = {lat:13.549934, lng:80.000071};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: c2
+    });
+    var marker2 = new google.maps.Marker({
+      position: ifmr,
+      map: map
+    });
+
+    var infowindow2 = new google.maps.InfoWindow({
+      content: '<b>Plant 2<br>IFMR Sri City</b>'
+    });
+
+    infowindow2.open(map, marker2);
+
+    google.maps.event.addListener(marker2, 'click', function(){infowindow2.open(map,marker2);});
+    google.maps.event.addDomListener(window, 'load', init_map);
+
+
+
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy7wSlEOIGjQwmvxDA8iu2BTjyyKzQZHU&callback=initMap">
+</script>
+
+
+<!--carousel-->
+<script>
+            $('.carousel.carousel-slider').carousel({full_width: true});
+            setInterval(function(){
+  $('.carousel').carousel('next');
+}, 3000);
+
+</script>
+
+<script>
+    zingchart.THEME = "classic";
+    var myConfig = {
+      "type": "line",
+      "background-color": "#003849",
+      "utc": true,
+      "title": {
+        "y": "7px",
+        "text": "Temperature Analytics",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
+      },
+      "plotarea": {
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "40%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+      "scale-x": {
+        "min-value": 1507104000000,
+        "shadow": 0,
+        "step": "7000000",
+        "line-color": "#f6f7f8",
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "transform": {
+          "type": "date",
+          "all": "%D, %d %M<br />%h:%i %A",
+          "guide": {
+            "visible": false
+          },
+          "item": {
+            "visible": false
+          }
+        },
+        "label": {
+          "visible": false
+        },
+        "minor-ticks": 0
+      },
+      "scale-y": {
+        "values": "0:60:10",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Temperature °C",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
+      },
+      "series": [{
+       // "values": {{tem}},
+       "values":[32.1,28.5,25.5,27,27.7,30,31.9,30.2,31.7,32,33.3,33.1,35.4],
+        "text": "Temperature",
+        "line-color": "#0dc3f8",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
+        "marker": {
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart1',
+      data: myConfig,
+      height: 700,
+      width: 1345,
+    });
+  </script>
+
+<script>
+    zingchart.THEME = "classic";
+    var myConfig = {
+      "type": "line",
+      "background-color": "#003849",
+      "utc": true,
+      "title": {
+        "y": "7px",
+        "text": "Humidity Analytics",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
+      },
+      "plotarea": {
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "40%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+      "scale-x": {
+        "min-value": 1507104000000,
+        "shadow": 0,
+        "step": "7000000",
+        "line-color": "#f6f7f8",
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "transform": {
+          "type": "date",
+          "all": "%D, %d %M<br />%h:%i %A",
+          "guide": {
+            "visible": false
+          },
+          "item": {
+            "visible": false
+          }
+        },
+        "label": {
+          "visible": false
+        },
+        "minor-ticks": 0
+      },
+      "scale-y": {
+        "values": "0:100:10",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Humidity %",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
+      },
+      "series": [{
+        //"values": {{humidity}},
+        "values":[32.1,28.5,25.5,27,27.7,30,31.9,30.2,31.7,32,33.3,33.1,35.4],
+        "text": "Humidity",
+        "line-color": "#2df711",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
+        "marker": {
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart2',
+      data: myConfig,
+      height: 700,
+      width: 1345,
+    });
+  </script>
+
+<script>
+    zingchart.THEME = "classic";
+    var myConfig = {
+      "type": "line",
+      "background-color": "#003849",
+      "utc": true,
+      "title": {
+        "y": "7px",
+        "text": "Pressure Analytics",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
+      },
+      "plotarea": {
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "40%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+      "scale-x": {
+        "min-value": 1507104000000,
+        "shadow": 0,
+        "step": "7000000",
+        "line-color": "#f6f7f8",
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "transform": {
+          "type": "date",
+          "all": "%D, %d %M<br />%h:%i %A",
+          "guide": {
+            "visible": false
+          },
+          "item": {
+            "visible": false
+          }
+        },
+        "label": {
+          "visible": false
+        },
+        "minor-ticks": 0
+      },
+      "scale-y": {
+        "values": "0:1200:100",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Pressure in mb",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
+      },
+      "series": [{
+       // "values": {{pressure}},
+       "values":[32.1,28.5,25.5,27,27.7,30,31.9,30.2,31.7,32,33.3,33.1,35.4],
+        "text": "Pressure",
+        "line-color": "#2df711",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
+        "marker": {
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        }
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart3',
+      data: myConfig,
+      height: 700,
+      width: 1345,
+    });
+  </script>
+
+    </body>
+  </html>

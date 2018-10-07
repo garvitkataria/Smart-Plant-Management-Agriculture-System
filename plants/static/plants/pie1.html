@@ -1,0 +1,257 @@
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script src="raphael-2.1.4.min.js"></script>
+    <script src="justgage.js"></script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+      zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+      ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>
+
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans+Caption" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Economica" rel="stylesheet">
+
+  <title></title>
+  </head>
+  <style>
+  .zc-ref {
+    display: none;
+  }
+  </style>
+<body  background="leef1.jpg"><br><br><br><br>
+  <center><div id='myChart'><a class="zc-rf" href="https://www.zingchart.com/"></a></div>
+<!-- You can create these divs dynamically in JS as well -->
+<div id='drilldown1'><a class="zc-ref" href="https://www.zingchart.com/"></a></div></center>
+
+  <script>
+    var originalConfig = {
+      "type": "ring",
+      "title": {
+        "text": "Sensor Statistics"
+      },
+      "plot": {
+        "detach": false,
+        "cursor": "hande",
+        "shadow": 8,
+        "tooltip": {
+          "visible": false
+        },
+        "animation": {
+          "delay": 10,
+          "effect": "2",
+          "speed": "ANIMATION_FAST",
+          "method": "1",
+          "sequence": "3",
+          "attributes": {
+
+          }
+        },
+        "value-box": {
+          "color": "fff",
+          "text": "%t",
+          "font-weight": "none",
+          "font-size": 14
+        }
+      },
+      "series": [{
+        "values": [69],
+        "background-color": "#F44336",
+        "text": "Temperature",
+        "data-id": "vt"
+      }, {
+        "values": [69],
+        "background-color": "#009688",
+        "text": "Actuator",
+        "data-id": "sp"
+      }, {
+        "values": [69],
+        "background-color": "#03A9F4",
+        "text": "Soil Moisture",
+        "data-id": "st"
+      }]
+    }
+
+    zingchart.render({
+      id: 'myChart',
+      data: originalConfig,
+      height: 450,
+      width:  500,
+    });
+
+
+
+    /************************
+     *  Secondary Charts
+     * *********************/
+    var drilldownConfig = {
+      "type": "bar",
+      "title": {
+        "text": "soil moisture"
+      },
+      "plotarea": {
+        "margin": "dynamic"
+      },
+      "plot": {
+        "animation": {
+          "delay": 10,
+          "effect": "4",
+          "speed": "1200",
+          "method": "1",
+          "sequence": "3"
+        },
+        "tooltip": {
+          "text": "Quantity: %v",
+          "shadow": true,
+          "shadowAlpha": .5,
+          "shadowBlur": 2,
+          "shadowDistance": 3,
+          "shadowColor": "#c4c4c4",
+          "borderWidth": 0,
+          "font-size": 18
+        }
+      },
+      "series": [{
+        "values": [35, 15, 25, 10],
+        "styles": ["#1565C0", "#42A5F5", "#1E88E5", "#90CAF9"]
+      }],
+      "scale-x": {
+        "line-color": "#555",
+        "tick": {
+          "line-color": "#555"
+        },
+        "values": ["Firewall", "Cache-control", "Link-access", "HTTP-Comp"],
+        "item": {
+          "max-chars": 9,
+          "color": "#555",
+          "font-size": 12
+        },
+        "label": {
+          "text": "Type",
+          "color": "#555",
+          "font-weight": "none",
+          "font-size": 16
+        }
+      },
+      "scale-y": {
+        "line-color": "#555",
+        "tick": {
+          "line-color": "#555"
+        },
+        "item": {
+          "color": "#555",
+          "font-size": 12
+        },
+        "guide": {
+          "visible": false
+        },
+        "label": {
+          "text": "Quantity",
+          "color": "#555",
+          "font-weight": "none",
+          "font-size": 16
+        }
+      },
+      "shapes": [{
+        'x': 20,
+        'y': 20,
+        'size': 10,
+        'angle': -90,
+        'type': 'triangle',
+        'background-color': '#C4C4C4',
+        'padding': 5,
+        'cursor': 'hand',
+        'id': 'backwards'
+      }]
+    };
+
+    /**
+     * Create associative array to manage drilldown config
+     */
+     var x=[Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1)]
+      var y=[Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1)]
+       var z=[Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1),Math.floor((Math.random() * 100) + 1)]
+
+    var drilldownDataStructure = [];
+    drilldownDataStructure["vt"] = {
+      "data": [x[0], x[1], x[2], x[3],x[4],x[5]],
+
+      "title": "Temperature",
+      "colors": ["#EF5350", "#E53935", "#C62828"]
+    };
+    drilldownDataStructure["sp"] = {
+      "data": [0,1],
+
+      "title": "Actuator",
+      "colors": ["#26A69A", "#80CBC4", "#00695C", "#00897B"]
+    };
+    drilldownDataStructure["st"] = {
+      "data": [z[0], z[1], z[2], z[3]],
+
+      "title": "Soil Moisture",
+      "colors": ['#26C6DA', '#80DEEA', '#00838F', '#00ACC1']
+    };
+
+
+    /*
+     * Built in zingchart API event used to capture node click events.
+     * Starting from this scope you will handle drilldown functionality.
+     */
+    zingchart.node_click = function(p) {
+      var plotIndex = p.plotindex;
+      var scaleText = p.scaletext;
+
+      // You could use this data to help construct drilldown graphs check it out...
+      //console.log(p);
+      if (drilldownDataStructure[p['data-id']]) {
+        drilldownConfig['title']['text'] = drilldownDataStructure[p['data-id']]['title'];
+        drilldownConfig['scale-x']['values'] = drilldownDataStructure[p['data-id']]['scale-labels'];
+        drilldownConfig['series'][0]['values'] = drilldownDataStructure[p['data-id']]['data'];
+        drilldownConfig['series'][0]['styles'] = drilldownDataStructure[p['data-id']]['colors'];
+        zingchart.exec('myChart', 'destroy');
+        zingchart.render({
+          id: 'drilldown1',
+          data: drilldownConfig,
+          height: 450,
+          width: 500,
+        });
+      }
+    }
+
+    /*
+     * Handle history buttons. You can assign
+     * shapes id's and based on id you can go
+     * 'forward' or 'backwards'. You could
+     * also handle this with HTML and register
+     * click events to those DOM elements.
+     */
+    zingchart.shape_click = function(p) {
+      var shapeId = p.shapeid;
+      //console.log(p);
+
+      switch (shapeId) {
+        case 'forwards':
+        case 'backwards':
+        case 'default':
+          zingchart.exec('drilldown1', 'destroy');
+          zingchart.render({
+            id: 'myChart',
+            data: originalConfig,
+            height: 450,
+            width: 500,
+          });
+          break;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Register</title>
+  <!-- Bootstrap core CSS-->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="{% static 'auth_part/css/sb-admin.css' %}" rel="stylesheet">
+</head>
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header text-center">Register an Account for your PlantCare</div>
+      <div class="card-body">
+        <form action="/newuser/" method="post">
+        {% csrf_token %} 
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12">
+                <label for="exampleInputName">Name</label>
+                <input class="form-control" name="username" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12">
+                <label for="exampleInputEmail1">Email address</label>
+                <input class="form-control" name="email" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter email">
+              </div>
+            </div>
+          </div>  
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12">
+                <label for="exampleInputPassword1">Password</label>
+                <input class="form-control" name="password" id="exampleInputPassword1" type="password" placeholder="Password">
+              </div>
+            </div>
+          </div>
+          <button value="submit" class="btn btn-primary btn-block col-md-12" href="{% url 'auth_part:login'%}">Register</button>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3 col-md-12" href="/">Login Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'auth_part/js/jquery.min.js' %}"></script>
+  <script src="{% static 'auth_part/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'auth_part/js/jquery.easing.min.js' %}"></script>
+
+</body>
+
+</html>
